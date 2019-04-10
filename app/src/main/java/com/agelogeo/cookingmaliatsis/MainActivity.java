@@ -1,5 +1,7 @@
 package com.agelogeo.cookingmaliatsis;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.SwitchPreference;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +26,7 @@ import android.widget.Switch;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FragmentTransaction transaction;
+    SQLiteDatabase myDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +36,24 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         setTitle("");
+        setMyDatabase();
 
-        for(int i=0;i<100;i++){
-            Episode episode = new Episode();
-            episode.setId(i);
-            episode.setThumbnail("https://img.youtube.com/vi/G_1UtzpOtwo/hqdefault.jpg");
-            episode.setTitle("Cooking Maliatsis - 56 - Τούρτα πίτσα");
-            episode.addOnEpisodeScenes(new Scene("https://youtu.be/XYhgCBQivL0?t=535"));
-            SavedSettings.addOnStaticAllEpisodes(episode);
+        Cursor c = myDatabase.rawQuery("SELECT * FROM episodes",null);
+        if(c.getCount()>0){
+            c.moveToFirst();
+            do{
+                Episode episode = new Episode();
+                episode.setId(c.getInt(0));
+                episode.setTitle(c.getString(1));
+                episode.setThumbnail(c.getString(2));
+                episode.addOnEpisodeScenes(new Scene(c.getString(3)));
+                SavedSettings.addOnStaticAllEpisodes(episode);
+                c.moveToNext();
+            }while(!c.isAfterLast());
+        }else{
+            Log.i("DATABASE","No Result...");
         }
-
+        c.close();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +74,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         SwitchCompat drawerSwitch = (SwitchCompat) navigationView.getMenu().findItem(R.id.switch_item).getActionView();
+        drawerSwitch.setChecked(true);
         drawerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -71,6 +84,19 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    }
+
+    public void setMyDatabase(){
+        myDatabase = this.openOrCreateDatabase("MaliatsisDB",MODE_PRIVATE,null);
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS episodes (id INT(6), title VARCHAR , thumbnail VARCHAR , link VARCHAR)");
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS scenes (id INT(6), title VARCHAR , favorite BOOLEAN , link VARCHAR , episode_id INT(6), FOREIGN KEY (episode_id) REFERENCES episodes(id))");
+
+        Cursor c = myDatabase.rawQuery("SELECT * FROM episodes",null);
+        if(c.getCount()==0){
+            Log.i("DATABASE","Initialize database..");
+            initiateDatabase();
+        }
+        c.close();
     }
 
 
@@ -132,5 +158,14 @@ public class MainActivity extends AppCompatActivity
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main_layout,fragment);
         transaction.commit();
+    }
+
+    public void initiateDatabase(){
+        myDatabase.execSQL("INSERT INTO episodes (id, title, thumbnail , link ) VALUES " +
+                        "(1,'Cooking Maliatsis - 01 - Φτερούγες κοτόπουλου με cola','https://img.youtube.com/vi/K99mRKZxPRc/hqdefault.jpg','https://www.youtube.com/watch?v=K99mRKZxPRc'),"+
+                        "(2,'Cooking Maliatsis - 02 - Κάτι σαν ομελέτα (ο Θεός να την κάνει)','https://img.youtube.com/vi/-LIYTu4nDkc/hqdefault.jpg','https://www.youtube.com/watch?v=-LIYTu4nDkc')," +
+                        "(3,'Cooking Maliatsis - 03 - Μπισκοτατάκια με πραλίνα','https://img.youtube.com/vi/KSZIMQWNhng/hqdefault.jpg','https://www.youtube.com/watch?v=KSZIMQWNhng')");
+
+
     }
 }
