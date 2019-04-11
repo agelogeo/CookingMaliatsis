@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,7 +38,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DownloadViewHolder
         try {
             Picasso.get().setIndicatorsEnabled(true);
             if(SavedSettings.isShowThumbnails())
-                Picasso.get().load(SavedSettings.thumbnail_link1+SavedSettings.getEpisodeFromAllArray(i).getThumbnail()+SavedSettings.thumbnail_link2).into(downloadViewHolder.photoWallpaper);
+                Picasso.get().load(SavedSettings.thumbnail_link1+SavedSettings.getEpisodeFromAllArray(i).getVideo_id()+SavedSettings.thumbnail_link2).into(downloadViewHolder.photoWallpaper);
 
         } catch (Exception e) {
             e.printStackTrace();

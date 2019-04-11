@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Episode {
     int id;
     String title;
-    String thumbnail;
+    String video_id;
     ArrayList<Scene> episodeScenes = new ArrayList<Scene>();
 
-    public Episode(int id, String title, String thumbnail, ArrayList<Scene> episodeScenes) {
+    public Episode(int id, String title, String video_id, ArrayList<Scene> episodeScenes) {
         this.id = id;
         this.title = title;
-        this.thumbnail = thumbnail;
+        this.video_id = video_id;
         this.episodeScenes = episodeScenes;
     }
 
@@ -34,12 +34,12 @@ public class Episode {
         this.title = title;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getVideo_id() {
+        return video_id;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setVideo_id(String video_id) {
+        this.video_id = video_id;
     }
 
     public ArrayList<Scene> getEpisodeScenes() {
