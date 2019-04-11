@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
                 episode.setId(c.getInt(0));
                 episode.setTitle(c.getString(1));
                 episode.setThumbnail(c.getString(2));
-                episode.addOnEpisodeScenes(new Scene(c.getString(3)));
+                episode.addOnEpisodeScenes(new Scene(c.getString(2)));
                 SavedSettings.addOnStaticAllEpisodes(episode);
                 c.moveToNext();
             }while(!c.isAfterLast());
@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity
 
     public void setMyDatabase(){
         myDatabase = this.openOrCreateDatabase("MaliatsisDB",MODE_PRIVATE,null);
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS episodes (id INT(6), title VARCHAR , thumbnail VARCHAR , link VARCHAR)");
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS scenes (id INT(6), title VARCHAR , favorite BOOLEAN , link VARCHAR , episode_id INT(6), FOREIGN KEY (episode_id) REFERENCES episodes(id))");
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS episodes (id INT(6), title VARCHAR , video_id VARCHAR )");
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS scenes (id INT(6), title VARCHAR , favorite BOOLEAN , timestamp INT(6) , episode_id INT(6), FOREIGN KEY (episode_id) REFERENCES episodes(id))");
 
         Cursor c = myDatabase.rawQuery("SELECT * FROM episodes",null);
         if(c.getCount()==0){
@@ -159,12 +159,38 @@ public class MainActivity extends AppCompatActivity
         transaction.replace(R.id.content_main_layout,fragment);
         transaction.commit();
     }
-
+//(1,'Cooking Maliatsis - 01 - Φτερούγες κοτόπουλου με cola','https://img.youtube.com/vi/K99mRKZxPRc/hqdefault.jpg','https://www.youtube.com/watch?v=K99mRKZxPRc')
     public void initiateDatabase(){
-        myDatabase.execSQL("INSERT INTO episodes (id, title, thumbnail , link ) VALUES " +
-                        "(1,'Cooking Maliatsis - 01 - Φτερούγες κοτόπουλου με cola','https://img.youtube.com/vi/K99mRKZxPRc/hqdefault.jpg','https://www.youtube.com/watch?v=K99mRKZxPRc'),"+
-                        "(2,'Cooking Maliatsis - 02 - Κάτι σαν ομελέτα (ο Θεός να την κάνει)','https://img.youtube.com/vi/-LIYTu4nDkc/hqdefault.jpg','https://www.youtube.com/watch?v=-LIYTu4nDkc')," +
-                        "(3,'Cooking Maliatsis - 03 - Μπισκοτατάκια με πραλίνα','https://img.youtube.com/vi/KSZIMQWNhng/hqdefault.jpg','https://www.youtube.com/watch?v=KSZIMQWNhng')");
+        myDatabase.execSQL("INSERT INTO episodes (id, title, video_id ) VALUES " +
+                        "(1,'Cooking Maliatsis - 01 - Φτερούγες κοτόπουλου με cola','K99mRKZxPRc'),"+
+                        "(2,'Cooking Maliatsis - 02 - Κάτι σαν ομελέτα (ο Θεός να την κάνει)','-LIYTu4nDkc')," +
+                        "(3,'Cooking Maliatsis - 03 - Μπισκοτατάκια με πραλίνα','KSZIMQWNhng')," +
+                        "(4,'Cooking Maliatsis - 04 - Κοτο(τσα)μπουκιές με nachos','6H3brlrLiBQ')," +
+                        "(5,'Cooking Maliatsis - 05 - Πίτα του Ποπάυ','KSZIMQWNhng')," +
+                        "(6,'Cooking Maliatsis - 06 - Στριφτή Μανιταρόπιτα','RM8xI3Co8-g')," +
+                        "(7,'Cooking Maliatsis - 07 - Quiche Lorraine','qJorwkgXffo')," +
+                        "(8,'Cooking Maliatsis - 08 - Το απόλυτο σάντουιτς','yIZOjzFfZN0')," +
+                        "(9,'Cooking Maliatsis - 09 - Κρέπες','5QytMNrIKVs')," +
+                        "(10,'Cooking Maliatsis - 10 - Ποπ κορν','zVfg-TdwbzE')," +
+                        "(11,'Cooking Maliatsis - 11 - Ωχ, τα πλευρά μου','CAu-TwP6gTo')," +
+                        "(12,'Cooking Maliatsis - 12 - Πανσέτες Pancho Villa','QP7dQvGmfoY')," +
+                        "(13,'Cooking Maliatsis - 13 - Το παλαμάρι του βαρκάρη','ohrbmP0dGpI')," +
+                        "(14,'Cooking Maliatsis - 14 - Μελομακαρομπιέδες και κουραμπιεκάρονα','r_7UtyPEhHM')," +
+                        "(15,'Cooking Maliatsis - 15 - Βασιλόπιτα','XNcukPQmRB8')," +
+                        "(16,'Cooking Maliatsis - 16 - Μουσακόγυρος','tIHuokZfU1g')," +
+                        "(17,'Cooking Maliatsis - 17 - Enrique: πέστροφα σε κρούστα αμυγδάλου','vOP4yFXB6Gc')," +
+                        "(18,'Cooking Maliatsis - 18 - Scotch Eggs','axx-pqsX78U')," +
+                        "(19,'Cooking Maliatsis - 19 - Κρεμ Μπρουλέ','HyMIwPazi5o')," +
+                        "(20,'Cooking Maliatsis - 20 - Κινέζικο Γ.Τ.Π.','cpbm3xW3DJc')," +
+                        "(21,'Cooking Maliatsis - 21 - Shepherd\''s Chilli','K9Ma9B-1KPM')," +
+                        "(22,'Cooking Maliatsis - 22 - Προφιτερόλ','hRuvGyvbwwg')," +
+                        "(23,'Cooking Maliatsis - 23 - Λαχανοντολμάδες αυγολέμονο','1YrpSjHl2tU')," +
+                        "(24,'Cooking Maliatsis - 24 - Διπλό Τζακπότ','B-bAutz5dAI')," +
+                        "(25,'Cooking Maliatsis - 25 - Μοσχαρίσια τηγανιά με πουρέ γλυκοπατάτας','82N7y--Zz_E')," +
+                        "(26,'Cooking Maliatsis - 26 - Cheesecake Brownies','gTmwHU9PRNs')" );/*+
+                "(20,'Cooking','5QytMNrIKVs')," +
+
+                ""*/
 
 
     }

@@ -39,7 +39,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DownloadViewHolder
         try {
             Picasso.get().setIndicatorsEnabled(true);
             if(SavedSettings.isShowThumbnails())
-                Picasso.get().load(SavedSettings.getEpisodeFromAllArray(i).getThumbnail()).into(downloadViewHolder.photoWallpaper);
+                Picasso.get().load(SavedSettings.thumbnail_link1+SavedSettings.getEpisodeFromAllArray(i).getThumbnail()+SavedSettings.thumbnail_link2).into(downloadViewHolder.photoWallpaper);
 
         } catch (Exception e) {
             e.printStackTrace();

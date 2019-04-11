@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 public class SavedSettings {
 
+    public static String youtube_link = "https://www.youtube.com/watch?v=";
+    public static String thumbnail_link1 = "https://img.youtube.com/vi/";
+    public static String thumbnail_link2 = "/hqdefault.jpg";
+    public static String youtube_timestamp = "&t=";
     public static boolean recentlyToTop = false;
     public static boolean showThumbnails = true;
     public static RecyclerView recyclerView ;
