@@ -97,7 +97,7 @@
         android:id="@+id/playEpisode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="85dp"
         android:clickable="true"
         app:backgroundTint="@color/fab"
         app:fabSize="mini"

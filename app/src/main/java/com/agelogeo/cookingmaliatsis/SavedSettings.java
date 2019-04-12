@@ -11,18 +11,11 @@ public class SavedSettings {
     public static String thumbnail_link2 = "/hqdefault.jpg";
     public static String youtube_timestamp = "&t=";
     public static boolean recentlyToTop = false;
-    public static boolean showThumbnails = true;
+    //public static boolean showThumbnails = true;
     public static RecyclerView recyclerView ;
     public static ArrayList<Episode> staticAllEpisodes = new ArrayList<Episode>();
     public static ArrayList<Episode> staticFavoriteEpisodes = new ArrayList<Episode>();
 
-    public static boolean isShowThumbnails() {
-        return showThumbnails;
-    }
-
-    public static void setShowThumbnails(boolean showThumbnails) {
-        SavedSettings.showThumbnails = showThumbnails;
-    }
 
     public static boolean isRecentlyToTop() {
         return recentlyToTop;

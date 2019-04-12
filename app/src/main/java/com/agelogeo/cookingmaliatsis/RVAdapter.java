@@ -27,10 +27,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DownloadViewHolder
     @NonNull
     @Override
     public DownloadViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        if(SavedSettings.isShowThumbnails())
-            v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_custom_layout, viewGroup, false);
-        else
-            v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.simple_list_custom_layout, viewGroup, false);
+        v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_custom_layout, viewGroup, false);
         DownloadViewHolder pvh = new DownloadViewHolder(v, SavedSettings.getEpisodeFromAllArray(i));
         return pvh;
     }
@@ -42,34 +39,33 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DownloadViewHolder
 
         try {
             Picasso.get().setIndicatorsEnabled(true);
-            if(SavedSettings.isShowThumbnails())
-                Picasso.get().load(SavedSettings.thumbnail_link1+SavedSettings.getEpisodeFromAllArray(i).getVideo_id()+SavedSettings.thumbnail_link2).into(downloadViewHolder.photoWallpaper);
+            Picasso.get().load(SavedSettings.thumbnail_link1+SavedSettings.getEpisodeFromAllArray(i).getVideo_id()+SavedSettings.thumbnail_link2).into(downloadViewHolder.photoWallpaper);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if(SavedSettings.isShowThumbnails()){
-            downloadViewHolder.photoWallpaper.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), EpisodeActivity.class);
-                    intent.putExtra("position",position);
 
-                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            // the context of the activity
-                            (Activity)v.getContext(),
+        downloadViewHolder.photoWallpaper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), EpisodeActivity.class);
+                intent.putExtra("position",position);
 
-                            // For each shared element, add to this method a new Pair item,
-                            // which contains the reference of the view we are transitioning *from*,
-                            // and the value of the transitionName attribute
-                            new Pair<View, String>(v.findViewById(R.id.list_custom_episode_thumbnail),
-                                    v.getContext().getString(R.string.transition_string))
-                    );
-                    ActivityCompat.startActivity(v.getContext(), intent, options.toBundle());
-                }
-            });
-        }
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        // the context of the activity
+                        (Activity)v.getContext(),
+
+                        // For each shared element, add to this method a new Pair item,
+                        // which contains the reference of the view we are transitioning *from*,
+                        // and the value of the transitionName attribute
+                        new Pair<View, String>(v.findViewById(R.id.list_custom_episode_thumbnail),
+                                v.getContext().getString(R.string.transition_string))
+                );
+                ActivityCompat.startActivity(v.getContext(), intent, options.toBundle());
+            }
+        });
+
 
 
     }
@@ -92,8 +88,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DownloadViewHolder
             this.episode = episode;
             cv = itemView.findViewById(R.id.custom_cv);
             title = itemView.findViewById(R.id.list_custom_title);
-            if(SavedSettings.isShowThumbnails())
-                photoWallpaper = itemView.findViewById(R.id.list_custom_episode_thumbnail);
+            photoWallpaper = itemView.findViewById(R.id.list_custom_episode_thumbnail);
 
 
 
