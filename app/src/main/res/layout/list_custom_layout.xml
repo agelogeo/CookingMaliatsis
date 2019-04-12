@@ -19,14 +19,14 @@
             <ImageView
                 android:id="@+id/list_custom_episode_thumbnail"
                 android:layout_width="0dp"
-                android:layout_height="223dp"
+                android:layout_height="200dp"
                 android:adjustViewBounds="false"
                 android:contentDescription="TODO"
-                android:cropToPadding="true"
+                android:cropToPadding="false"
                 android:scaleType="centerCrop"
                 android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/custom_constraintLayout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_launcher_background" />
@@ -35,13 +35,11 @@
                 android:id="@+id/custom_constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="170dp"
                 android:background="@drawable/custom_bar_gradient_3"
                 app:layout_constraintBottom_toBottomOf="@+id/list_custom_episode_thumbnail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/list_custom_episode_thumbnail">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
                     android:id="@+id/list_custom_title"
@@ -57,8 +55,10 @@
                     android:textStyle="bold|italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
             </android.support.constraint.ConstraintLayout>
 

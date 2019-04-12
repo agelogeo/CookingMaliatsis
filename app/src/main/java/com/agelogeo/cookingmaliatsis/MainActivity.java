@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-
+        setFragment(new AllFragment());
     }
 
     public void setMyDatabase(){
