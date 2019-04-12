@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity
     public void setMyDatabase(){
         myDatabase = this.openOrCreateDatabase("MaliatsisDB",MODE_PRIVATE,null);
         myDatabase.execSQL("CREATE TABLE IF NOT EXISTS episodes (id INT(6), title VARCHAR , video_id VARCHAR )");
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS scenes (id INT(6), title VARCHAR , favorite BOOLEAN , timestamp INT(6) , episode_id INT(6), FOREIGN KEY (episode_id) REFERENCES episodes(id))");
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS scenes (id INT(6), title VARCHAR , timestamp INT(6) , episode_id INT(6), FOREIGN KEY (episode_id) REFERENCES episodes(id))");
 
         Cursor c = myDatabase.rawQuery("SELECT * FROM episodes",null);
         if(c.getCount()==0){
@@ -262,30 +262,39 @@ public class MainActivity extends AppCompatActivity
                         "(101,'Cooking Maliatsis - 100 - Γεμιστά με γύρο','Lby2yat8boc')," +
                         "(102,'Cooking Maliatsis - 101 - Stargazy Pie','u6dCYy1YukE')," +
                         "(103,'Cooking Maliatsis - 102 - Χωνακονιονκεφτέδες της οργής','ayq4ikbgwr8')," +
-                "(104,'Cooking Maliatsis - 103 - Το SPAM του αιώνα','mm25peTPo2c')," +
-                "(105,'Cooking Maliatsis - 104 - Πίτσα κουνουπίδι','50aNUFqjJcI')," +
-                "(106,'Cooking Maliatsis - 105 - Ντόπα γλυκό με Baileys','G_1UtzpOtwo')," +
-                "(107,'Cooking Maliatsis - 106 - Τροπικό χοιρινό με μπανάνα ft. Ευρυδίκη Βαλαβάνη','OYtcKfH88-s')," +
-                "(108,'Cooking Maliatsis - 107 - Deep Fried Cheeseburger','28VCnmE3K0k')," +
-                "(109,'Cooking Maliatsis - 108 - Χταπόδι φρικασέ και-φτέδες','yZ0y95jAF4U')," +
-                "(110,'Cooking Maliatsis - 109 - Brownies με 3 σοκολάτες και παντζάρι','0ObhDXXyUCA')," +
-                "(111,'Cooking Maliatsis - 110 - Ramen ft. Σωτήρης Κοντιζάς','EVzaw5rFY3Q')," +
-                "(112,'Cooking Maliatsis - 111 - ΤΟΥΜΠΑΝΟΟΟΟ (speaks fluent Italian)','tQyudI2GBMQ')," +
-                "(113,'Cooking Maliatsis - 112 - Κουνέλι κοκορέτσι','9psbqMpI-mw')," +
-                "(114,'Cooking Maliatsis - 113 - Flying spaghetti κιμάνστερ','sQP67PAQRUQ')," +
-                "(115,'Cooking Maliatsis - 114 - Πρόχειρο διαγώνισμα: Scotch Eggs','BybNrB9n6XA')," +
-                "(116,'Cooking Maliatsis - 115 - Πορτσέτα με μπύρα','tchGGkelGc0')," +
-                "(117,'Cooking Maliatsis - 116 - Ο τιτλος του $eΧ tape σου','vx8tb2xBhUs')," +
-                "(118,'Cooking Maliatsis - 117 - Επικά μπισκοτομπράουνις','2vYpgR645jM')," +
-                "(119,'Cooking Maliatsis - 118 - Ποιος γ@μ@ει ποιος χήνα','RHTH57bYsWI')," +
-                "(120,'Cooking Maliatsis - 119 - Μπιφτεκολαζάνια με κιμά','5eerj2Fby0w')," +
-                "(121,'Cooking Maliatsis - 120 - Κεφαλάκι αρνίσιο','x4gm4CLGJyU')," +
-                "(122,'Cooking Maliatsis - 121 - Κύβος ΤυΡούμπικ ft. Φάνης Λαμπρόπουλος','HITaLSa21rk')," +
-                "(123,'Cooking Maliatsis - 122 - Πορτοκαλοπιτα με παγωτό','cLreTY58n5k')," +
-                "(124,'Cooking Maliatsis - 123 - Παέγια','TSV0J0qS1i8')," +
-                "(125,'Cooking Maliatsis - 124 - Μους σοκολάτα honeycomb','EU5IPEeCOoo')," +
-                "(125,'Cooking Maliatsis - 125 - Kizomba Hash Browns με Γύρο','d8mRhcqwu5Y')");
-
+                        "(104,'Cooking Maliatsis - 103 - Το SPAM του αιώνα','mm25peTPo2c')," +
+                        "(105,'Cooking Maliatsis - 104 - Πίτσα κουνουπίδι','50aNUFqjJcI')," +
+                        "(106,'Cooking Maliatsis - 105 - Ντόπα γλυκό με Baileys','G_1UtzpOtwo')," +
+                        "(107,'Cooking Maliatsis - 106 - Τροπικό χοιρινό με μπανάνα ft. Ευρυδίκη Βαλαβάνη','OYtcKfH88-s')," +
+                        "(108,'Cooking Maliatsis - 107 - Deep Fried Cheeseburger','28VCnmE3K0k')," +
+                        "(109,'Cooking Maliatsis - 108 - Χταπόδι φρικασέ και-φτέδες','yZ0y95jAF4U')," +
+                        "(110,'Cooking Maliatsis - 109 - Brownies με 3 σοκολάτες και παντζάρι','0ObhDXXyUCA')," +
+                        "(111,'Cooking Maliatsis - 110 - Ramen ft. Σωτήρης Κοντιζάς','EVzaw5rFY3Q')," +
+                        "(112,'Cooking Maliatsis - 111 - ΤΟΥΜΠΑΝΟΟΟΟ (speaks fluent Italian)','tQyudI2GBMQ')," +
+                        "(113,'Cooking Maliatsis - 112 - Κουνέλι κοκορέτσι','9psbqMpI-mw')," +
+                        "(114,'Cooking Maliatsis - 113 - Flying spaghetti κιμάνστερ','sQP67PAQRUQ')," +
+                        "(115,'Cooking Maliatsis - 114 - Πρόχειρο διαγώνισμα: Scotch Eggs','BybNrB9n6XA')," +
+                        "(116,'Cooking Maliatsis - 115 - Πορτσέτα με μπύρα','tchGGkelGc0')," +
+                        "(117,'Cooking Maliatsis - 116 - Ο τιτλος του $eΧ tape σου','vx8tb2xBhUs')," +
+                        "(118,'Cooking Maliatsis - 117 - Επικά μπισκοτομπράουνις','2vYpgR645jM')," +
+                        "(119,'Cooking Maliatsis - 118 - Ποιος γ@μ@ει ποιος χήνα','RHTH57bYsWI')," +
+                        "(120,'Cooking Maliatsis - 119 - Μπιφτεκολαζάνια με κιμά','5eerj2Fby0w')," +
+                        "(121,'Cooking Maliatsis - 120 - Κεφαλάκι αρνίσιο','x4gm4CLGJyU')," +
+                        "(122,'Cooking Maliatsis - 121 - Κύβος ΤυΡούμπικ ft. Φάνης Λαμπρόπουλος','HITaLSa21rk')," +
+                        "(123,'Cooking Maliatsis - 122 - Πορτοκαλοπιτα με παγωτό','cLreTY58n5k')," +
+                        "(124,'Cooking Maliatsis - 123 - Παέγια','TSV0J0qS1i8')," +
+                        "(125,'Cooking Maliatsis - 124 - Μους σοκολάτα honeycomb','EU5IPEeCOoo')," +
+                        "(125,'Cooking Maliatsis - 125 - Kizomba Hash Browns με Γύρο','d8mRhcqwu5Y')");
+                        initiateDatabaseScenes();
 
     }
+
+    public void initiateDatabaseScenes(){
+        //id INT(6), title VARCHAR , timestamp INT(6) , episode_id INT(6)
+        myDatabase.execSQL("INSERT INTO scenes (id, title, timestamp , episode_id ) VALUES " +
+                "(1,'Test Scene',225,125)");
+
+    }
+
+
 }

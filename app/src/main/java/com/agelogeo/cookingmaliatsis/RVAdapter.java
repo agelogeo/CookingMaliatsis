@@ -1,6 +1,11 @@
 package com.agelogeo.cookingmaliatsis;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,7 +53,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DownloadViewHolder
             downloadViewHolder.photoWallpaper.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*Intent intent = new Intent(v.getContext(), PostActivity.class);
+                    Intent intent = new Intent(v.getContext(), EpisodeActivity.class);
                     intent.putExtra("position",position);
 
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
@@ -58,10 +63,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DownloadViewHolder
                             // For each shared element, add to this method a new Pair item,
                             // which contains the reference of the view we are transitioning *from*,
                             // and the value of the transitionName attribute
-                            new Pair<View, String>(v.findViewById(R.id.custom_photoWallpaper),
+                            new Pair<View, String>(v.findViewById(R.id.list_custom_episode_thumbnail),
                                     v.getContext().getString(R.string.transition_string))
                     );
-                    ActivityCompat.startActivity(v.getContext(), intent, options.toBundle());*/
+                    ActivityCompat.startActivity(v.getContext(), intent, options.toBundle());
                 }
             });
         }
