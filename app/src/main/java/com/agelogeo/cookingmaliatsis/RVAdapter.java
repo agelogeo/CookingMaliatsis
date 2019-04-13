@@ -27,7 +27,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DownloadViewHolder
     @NonNull
     @Override
     public DownloadViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_custom_layout, viewGroup, false);
+        v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.episode_custom_layout, viewGroup, false);
         DownloadViewHolder pvh = new DownloadViewHolder(v, SavedSettings.getEpisodeFromAllArray(i));
         return pvh;
     }

@@ -55,7 +55,9 @@
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="true"
             android:overScrollMode="always"
-            android:paddingTop="20dp">
+            android:paddingLeft="8dp"
+            android:paddingTop="20dp"
+            android:paddingRight="8dp">
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.NestedScrollView>

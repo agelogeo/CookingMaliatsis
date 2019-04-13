@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +28,7 @@ public class ScenesAdapter extends RecyclerView.Adapter<ScenesAdapter.DownloadVi
     @NonNull
     @Override
     public DownloadViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_custom_layout, viewGroup, false);
+        v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.scene_custom_layout, viewGroup, false);
         DownloadViewHolder pvh = new DownloadViewHolder(v, SavedSettings.getEpisodeFromAllArray(i));
         return pvh;
     }
@@ -46,23 +47,17 @@ public class ScenesAdapter extends RecyclerView.Adapter<ScenesAdapter.DownloadVi
         }
 
 
-        downloadViewHolder.photoWallpaper.setOnClickListener(new View.OnClickListener() {
+        downloadViewHolder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), EpisodeActivity.class);
-                intent.putExtra("position",position);
+                Toast.makeText(v.getContext(),"Share",Toast.LENGTH_SHORT).show();
+            }
+        });
 
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        // the context of the activity
-                        (Activity)v.getContext(),
-
-                        // For each shared element, add to this method a new Pair item,
-                        // which contains the reference of the view we are transitioning *from*,
-                        // and the value of the transitionName attribute
-                        new Pair<View, String>(v.findViewById(R.id.list_custom_episode_thumbnail),
-                                v.getContext().getString(R.string.transition_string))
-                );
-                ActivityCompat.startActivity(v.getContext(), intent, options.toBundle());
+        downloadViewHolder.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"Like",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -80,15 +75,17 @@ public class ScenesAdapter extends RecyclerView.Adapter<ScenesAdapter.DownloadVi
     public static class DownloadViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView title;
-        ImageView photoWallpaper;
+        ImageView photoWallpaper,shareButton,likeButton;
         Episode episode;
 
         DownloadViewHolder(final View itemView, final Episode episode) {
             super(itemView);
             this.episode = episode;
-            cv = itemView.findViewById(R.id.custom_cv);
-            title = itemView.findViewById(R.id.list_custom_title);
-            photoWallpaper = itemView.findViewById(R.id.list_custom_episode_thumbnail);
+            cv = itemView.findViewById(R.id.custom_scene_cv);
+            title = itemView.findViewById(R.id.scene_custom_title);
+            photoWallpaper = itemView.findViewById(R.id.scene_custom_episode_thumbnail);
+            shareButton = itemView.findViewById(R.id.shareSceneBtn);
+            likeButton = itemView.findViewById(R.id.likeSceneBtn);
 
 
 
