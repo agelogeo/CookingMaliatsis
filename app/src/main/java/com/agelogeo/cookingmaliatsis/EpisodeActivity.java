@@ -8,6 +8,8 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,12 +18,19 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 public class EpisodeActivity extends AppCompatActivity {
-
+    RecyclerView recyclerView;
+    ScenesAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_episode);
-
+        recyclerView = findViewById(R.id.scenes_Recycler);
+        adapter = new ScenesAdapter();
+        recyclerView.setAdapter(adapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
         Intent intent = getIntent();
         final int position = intent.getIntExtra("position",0);
 
@@ -68,5 +77,7 @@ public class EpisodeActivity extends AppCompatActivity {
         collapsingToolbarLayout.setExpandedTitleColor(Color.rgb(255,255,255));
         collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorPrimary));
         collapsingToolbarLayout.setScrimAnimationDuration(100);
+
+
     }
 }
