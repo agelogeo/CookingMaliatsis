@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,8 @@ public class ScenesAdapter extends RecyclerView.Adapter<ScenesAdapter.DownloadVi
     @Override
     public void onBindViewHolder(@NonNull final DownloadViewHolder downloadViewHolder, int i) {
         final int position = i;
-        downloadViewHolder.title.setText(SavedSettings.getEpisodeFromAllArray(i).getTitle());
+        int timestamp = SavedSettings.getEpisodeFromAllArray(episode_position).getEpisodeScenes().get(position).getTimestamp();
+        downloadViewHolder.title.setText(SavedSettings.getEpisodeFromAllArray(episode_position).getEpisodeScenes().get(position).getTitle()+" @"+ DateUtils.formatElapsedTime(timestamp));
 
         try {
             Picasso.get().setIndicatorsEnabled(true);
@@ -66,6 +68,15 @@ public class ScenesAdapter extends RecyclerView.Adapter<ScenesAdapter.DownloadVi
             }
         });
 
+        downloadViewHolder.photoWallpaper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), VideoActivity.class);
+                intent.putExtra("episode_position",episode_position);
+                intent.putExtra("scene_position",position);
+                ActivityCompat.startActivity(v.getContext(), intent, null);
+            }
+        });
 
 
     }

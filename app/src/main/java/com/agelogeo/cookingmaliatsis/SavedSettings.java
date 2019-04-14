@@ -15,7 +15,7 @@ public class SavedSettings {
     public static RecyclerView recyclerView ;
     public static ArrayList<Episode> staticAllEpisodes = new ArrayList<Episode>();
     public static ArrayList<Episode> staticFavoriteEpisodes = new ArrayList<Episode>();
-
+    public static String API_KEY = "AIzaSyDq05yHLnrEiz7AViCdwxGofiVpIjCxDzk";
 
     public static boolean isRecentlyToTop() {
         return recentlyToTop;
