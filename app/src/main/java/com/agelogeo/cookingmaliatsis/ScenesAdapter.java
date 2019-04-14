@@ -1,6 +1,7 @@
 package com.agelogeo.cookingmaliatsis;
 
 import android.app.Activity;
+import android.arch.lifecycle.Lifecycle;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -14,15 +15,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
+
 
 
 public class ScenesAdapter extends RecyclerView.Adapter<ScenesAdapter.DownloadViewHolder>{
     View v;
     int episode_position;
-    ScenesAdapter(int position){
+    Lifecycle lifecycle;
+
+    ScenesAdapter(int position,Lifecycle lifecycle){
         episode_position = position;
+        this.lifecycle = lifecycle;
     }
 
 

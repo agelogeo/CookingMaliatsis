@@ -27,7 +27,7 @@ public class EpisodeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final int position = intent.getIntExtra("position",0);
         recyclerView = findViewById(R.id.scenes_Recycler);
-        adapter = new ScenesAdapter(position);
+        adapter = new ScenesAdapter(position,getLifecycle());
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setReverseLayout(true);
