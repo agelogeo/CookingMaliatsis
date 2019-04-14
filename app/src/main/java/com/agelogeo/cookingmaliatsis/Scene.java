@@ -2,7 +2,24 @@ package com.agelogeo.cookingmaliatsis;
 
 public class Scene {
     String link;
-    int timestamp = 0;
+    int timestamp = 0 , scene_id;
+    String title;
+
+    public int getScene_id() {
+        return scene_id;
+    }
+
+    public void setScene_id(int scene_id) {
+        this.scene_id = scene_id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Scene(String link) {
         this.link = link;

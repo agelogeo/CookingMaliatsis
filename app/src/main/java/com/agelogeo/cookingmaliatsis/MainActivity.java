@@ -35,22 +35,35 @@ public class MainActivity extends AppCompatActivity
         setTitle("");
         setMyDatabase();
 
-        Cursor c = myDatabase.rawQuery("SELECT * FROM episodes",null);
-        if(c.getCount()>0){
-            c.moveToFirst();
+        Cursor episode_cursor = myDatabase.rawQuery("SELECT * FROM episodes",null);
+        if(episode_cursor.getCount()>0){
+            episode_cursor.moveToFirst();
             do{
                 Episode episode = new Episode();
-                episode.setId(c.getInt(0));
-                episode.setTitle(c.getString(1));
-                episode.setVideo_id(c.getString(2));
-                episode.addOnEpisodeScenes(new Scene(c.getString(2)));
+                episode.setId(episode_cursor.getInt(0));
+                episode.setTitle(episode_cursor.getString(1));
+                episode.setVideo_id(episode_cursor.getString(2));
+                Cursor scene_cursor = myDatabase.rawQuery("SELECT * FROM scenes WHERE episode_id = ?",new String[] {Integer.toString(episode.getId())});
+                Log.i("EPISODE",episode.getId()+" "+scene_cursor.getCount());
+                if(scene_cursor.getCount()>0){
+                    scene_cursor.moveToFirst();
+                    do{
+                        Scene scene = new Scene();
+                        scene.setScene_id(scene_cursor.getInt(0));
+                        scene.setTitle(scene_cursor.getString(1));
+                        scene.setTimestamp(scene_cursor.getInt(2));
+                        episode.addOnEpisodeScenes(scene);
+                        scene_cursor.moveToNext();
+                    }while(!scene_cursor.isAfterLast());
+                    scene_cursor.close();
+                }
                 SavedSettings.addOnStaticAllEpisodes(episode);
-                c.moveToNext();
-            }while(!c.isAfterLast());
+                episode_cursor.moveToNext();
+            }while(!episode_cursor.isAfterLast());
         }else{
             Log.i("DATABASE","No Result...");
         }
-        c.close();
+        episode_cursor.close();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -274,7 +287,7 @@ public class MainActivity extends AppCompatActivity
                         "(123,'Cooking Maliatsis - 122 - Πορτοκαλοπιτα με παγωτό','cLreTY58n5k')," +
                         "(124,'Cooking Maliatsis - 123 - Παέγια','TSV0J0qS1i8')," +
                         "(125,'Cooking Maliatsis - 124 - Μους σοκολάτα honeycomb','EU5IPEeCOoo')," +
-                        "(125,'Cooking Maliatsis - 125 - Kizomba Hash Browns με Γύρο','d8mRhcqwu5Y')");
+                        "(126,'Cooking Maliatsis - 125 - Kizomba Hash Browns με Γύρο','d8mRhcqwu5Y')");
                         initiateDatabaseScenes();
 
     }
@@ -282,7 +295,7 @@ public class MainActivity extends AppCompatActivity
     public void initiateDatabaseScenes(){
         //id INT(6), title VARCHAR , timestamp INT(6) , episode_id INT(6)
         myDatabase.execSQL("INSERT INTO scenes (id, title, timestamp , episode_id ) VALUES " +
-                "(1,'Test Scene',225,125)");
+                "(1,'Test Scene',85,126)");
 
     }
 

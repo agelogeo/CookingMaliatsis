@@ -20,8 +20,9 @@ import com.squareup.picasso.Picasso;
 
 public class ScenesAdapter extends RecyclerView.Adapter<ScenesAdapter.DownloadViewHolder>{
     View v;
-
-    ScenesAdapter(){
+    int episode_position;
+    ScenesAdapter(int position){
+        episode_position = position;
     }
 
 
@@ -68,7 +69,7 @@ public class ScenesAdapter extends RecyclerView.Adapter<ScenesAdapter.DownloadVi
 
     @Override
     public int getItemCount() {
-        return 8;
+        return SavedSettings.getEpisodeFromAllArray(episode_position).getEpisodeScenes().size();
     }
 
 

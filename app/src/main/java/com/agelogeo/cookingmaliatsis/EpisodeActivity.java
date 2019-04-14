@@ -24,15 +24,16 @@ public class EpisodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_episode);
+        Intent intent = getIntent();
+        final int position = intent.getIntExtra("position",0);
         recyclerView = findViewById(R.id.scenes_Recycler);
-        adapter = new ScenesAdapter();
+        adapter = new ScenesAdapter(position);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
-        Intent intent = getIntent();
-        final int position = intent.getIntExtra("position",0);
+
 
         FloatingActionButton playEpisode = findViewById(R.id.playEpisode);
         playEpisode.setOnClickListener(new View.OnClickListener() {
