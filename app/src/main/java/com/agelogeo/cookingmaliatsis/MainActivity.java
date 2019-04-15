@@ -295,7 +295,10 @@ public class MainActivity extends AppCompatActivity
     public void initiateDatabaseScenes(){
         //id INT(6), title VARCHAR , timestamp INT(6) , episode_id INT(6)
         myDatabase.execSQL("INSERT INTO scenes (id, title, timestamp , episode_id ) VALUES " +
-                "(1,'Test Scene',85,126)");
+                "(1,'Test Scene #1',85,126)," +
+                "(2,'Test Scene #2',120,126)," +
+                "(3,'Test Scene #3',215,126)," +
+                "(4,'Test Scene #4',5,126)");
 
     }
 

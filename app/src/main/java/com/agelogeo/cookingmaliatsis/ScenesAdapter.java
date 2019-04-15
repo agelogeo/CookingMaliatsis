@@ -3,6 +3,9 @@ package com.agelogeo.cookingmaliatsis;
 import android.app.Activity;
 import android.arch.lifecycle.Lifecycle;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -24,6 +27,7 @@ public class ScenesAdapter extends RecyclerView.Adapter<ScenesAdapter.DownloadVi
     View v;
     int episode_position;
     Lifecycle lifecycle;
+    boolean isFavorite = false;
 
     ScenesAdapter(int position,Lifecycle lifecycle){
         episode_position = position;
@@ -47,7 +51,7 @@ public class ScenesAdapter extends RecyclerView.Adapter<ScenesAdapter.DownloadVi
 
         try {
             Picasso.get().setIndicatorsEnabled(true);
-            Picasso.get().load(SavedSettings.thumbnail_link1+SavedSettings.getEpisodeFromAllArray(i).getVideo_id()+SavedSettings.thumbnail_link2).into(downloadViewHolder.photoWallpaper);
+            Picasso.get().load(SavedSettings.thumbnail_link1+SavedSettings.getEpisodeFromAllArray(episode_position).getVideo_id()+SavedSettings.thumbnail_link2).into(downloadViewHolder.photoWallpaper);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,7 +68,17 @@ public class ScenesAdapter extends RecyclerView.Adapter<ScenesAdapter.DownloadVi
         downloadViewHolder.likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Like",Toast.LENGTH_SHORT).show();
+                if(isFavorite){
+                    isFavorite = false;
+                    downloadViewHolder.likeButton.setImageResource(R.drawable.baseline_favorite_border_black_36);
+                    downloadViewHolder.likeButton.setColorFilter(Color.argb(255, 0, 0, 0), PorterDuff.Mode.SRC_ATOP);
+                }else{
+                    Toast.makeText(v.getContext(),"Added to favorites.",Toast.LENGTH_SHORT).show();
+                    isFavorite = true;
+                    downloadViewHolder.likeButton.setImageResource(R.drawable.baseline_favorite_black_36);
+                    downloadViewHolder.likeButton.setColorFilter(Color.argb(255, 255, 0, 0), PorterDuff.Mode.SRC_ATOP);
+
+                }
             }
         });
 
