@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/chewy"
-                android:text="Cooking Maliatsis"
+                android:text="@string/app_name"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
                 android:textSize="24sp"
