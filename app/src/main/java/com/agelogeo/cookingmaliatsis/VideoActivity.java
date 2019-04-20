@@ -28,7 +28,7 @@ public class VideoActivity extends YouTubeBaseActivity {
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
 
                 youTubePlayer.loadVideo(SavedSettings.getEpisodeFromAllArray(episode_position).getVideo_id(),1000*SavedSettings.getEpisodeFromAllArray(episode_position).getEpisodeScenes().get(scene_position).getTimestamp());
-
+                youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
             }
 
             @Override
