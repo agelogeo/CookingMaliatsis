@@ -4,6 +4,15 @@ public class Scene {
     String link;
     int timestamp = 0 , scene_id;
     String title;
+    int episode_id;
+
+    public int getEpisode_id() {
+        return episode_id;
+    }
+
+    public void setEpisode_id(int episode_id) {
+        this.episode_id = episode_id;
+    }
 
     public int getScene_id() {
         return scene_id;

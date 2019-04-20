@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
                         scene.setScene_id(scene_cursor.getInt(0));
                         scene.setTitle(scene_cursor.getString(1));
                         scene.setTimestamp(scene_cursor.getInt(2));
+                        scene.setEpisode_id(scene_cursor.getInt(3));
                         episode.addOnEpisodeScenes(scene);
                         scene_cursor.moveToNext();
                     }while(!scene_cursor.isAfterLast());
